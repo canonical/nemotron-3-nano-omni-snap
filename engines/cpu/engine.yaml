@@ -13,7 +13,7 @@ devices:
 memory: 15G
 
 # The usage will be higher if considering snapd snapshots.
-disk-space: 34G
+disk-space: 68G
 
 components:
   - llama-cpp
