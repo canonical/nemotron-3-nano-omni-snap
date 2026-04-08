@@ -1,0 +1,212 @@
+name: nemotron-3-nano-omni
+base: core24
+summary: Inference Snap for Nemotron 3 Nano Omni
+description: See https://snapcraft.io/nemotron-3-nano-omni
+
+adopt-info: version
+
+grade: stable
+confinement: strict
+compression: lzo
+
+environment:
+  SNAP_COMPONENTS: /snap/$SNAP_INSTANCE_NAME/components/$SNAP_REVISION
+  ARCH_TRIPLET: $CRAFT_ARCH_TRIPLET_BUILD_FOR
+  OCL_ICD_VENDORS: $SNAP/etc/OpenCL/vendors
+
+layout:
+  # OpenCL looks in /etc/OpenCL/vendors for .icd files containing the paths to shared objects
+  /etc/OpenCL/vendors:
+    bind: $SNAP/etc/OpenCL/vendors
+  # Intel icd files use an absolute path to Intel OpenCL shared objects. Use a layout to mount the so files at the expected location
+  /usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/intel-opencl:
+    bind: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/intel-opencl
+
+plugs:
+  # To allow side-loading models into server (root daemon) from user home directory
+  home:
+    read: all
+
+hooks:
+  install:
+    plugs:
+      - hardware-observe
+      - opengl
+
+parts:
+  version:
+    plugin: dump
+    source: .
+    build-packages:
+      - git
+    override-pull: |
+      hash=$(git -C $SNAPCRAFT_PROJECT_DIR describe --always)
+      craftctl set version="v3+$hash"
+
+  cli:
+    source:
+      - on amd64: https://github.com/canonical/inference-snaps-cli/releases/download/v1.0.0-beta.37/inference-snaps-cli-linux-amd64.tar.xz
+      - on arm64: https://github.com/canonical/inference-snaps-cli/releases/download/v1.0.0-beta.37/inference-snaps-cli-linux-arm64.tar.xz
+    plugin: dump
+    override-build: |
+      mkdir -p bin
+      mv cli bin/modelctl
+
+      # For tab completion
+      ln --symbolic ./modelctl bin/nemotron-3-nano-omni
+
+      craftctl default
+    stage-packages:
+      - pciutils # lspci
+      - nvidia-utils-580 # nvidia-smi, used for NVIDIA vRAM and CUDA Capability detection
+
+  engines:
+    source: engines
+    plugin: dump
+    organize:
+      "*": engines/
+
+  scripts:
+    source: scripts
+    plugin: dump
+    stage-packages:
+      - jq
+    organize:
+      "server.sh": bin/
+      "completion.bash": bin/
+
+  model-30b-a3b-q8-0-gguf:
+    plugin: nil
+    # WARNING: "source" is commented out to improve disk use, as a side effect,
+    # snapcraft will not detect changes to the source files to clear the cache and re-prime.
+    # source: components/model-30b-a3b-q8_0-gguf
+    override-prime: |
+      set +x # reduce noise
+
+      # Bypassing the usual part lifecycle saves disk space and time when dealing with large files
+      # Copy model files directly from the project into the respective component's prime directory
+      source_dir="$CRAFT_PROJECT_DIR/components/model-30b-a3b-q8_0-gguf"
+      for i in {1..8}; do
+        target_env="CRAFT_COMPONENT_MODEL_30B_A3B_Q8_0_GGUF_${i}_OF_8_PRIME"
+        target_comp="${!target_env}"
+
+        # Copy the gguf shard to the component directory
+        cp -v "$source_dir/nemotron-3-nano-omni-ea1_v2.0-Q8_0-0000${i}-of-00008.gguf" "$target_comp/"
+
+        if [ "$i" -eq 1 ]; then
+          # Copy any other non-gguf files from the components directory
+          for f in "$source_dir"/*; do
+            if [ -f "$f" ]; then
+              case "$f" in
+                *.gguf) ;;
+                *) cp -v "$f" "$target_comp/" ;;
+              esac
+            fi
+          done
+        else
+          # Each component must include a component.yaml config file.
+          # For components other than the first, create an empty one:
+          echo "# No config" > "$target_comp/component.yaml"
+        fi
+      done
+
+  model-mmproj:
+    plugin: nil
+    # WARNING: "source" is commented out to improve disk use, as a side effect,
+    # snapcraft will not detect changes to the source files to clear the cache and re-prime.
+    # source: components/model-mmproj
+    override-prime: |
+      set +x # reduce noise
+
+      # Bypassing the usual part lifecycle saves disk space and time when dealing with large files
+      # Copy model files directly from the project into the respective component's prime directory
+
+      source_dir="$CRAFT_PROJECT_DIR/components/model-mmproj"
+      target_env="CRAFT_COMPONENT_MODEL_MMPROJ_PRIME"
+      target_comp="${!target_env}"
+
+      cp -v "$source_dir/mmproj-nemotron-3-nano-omni-ea1_v2.0.gguf" "$target_comp/"
+      cp -v "$source_dir/component.yaml" "$target_comp/"
+
+  llama-cpp:
+    plugin: dump
+    source:
+      - on amd64: ./llamacpp-amd64.tar.gz # TODO: replace with remote build
+      - on arm64: ./llamacpp-arm64.tar.gz # TODO: replace with remote build
+    override-build: |
+      # Move license files to be included in the snap, not the component
+      mkdir -p $CRAFT_PRIME/usr/share/doc/
+      mv licenses $CRAFT_PRIME/usr/share/doc/llama.cpp
+
+      craftctl default
+    stage-packages:
+      - libgomp1
+    organize:
+      "*": (component/llama-cpp)
+
+  llama-cpp-local-files:
+    plugin: dump
+    source: components/llama-cpp
+    organize:
+      "*": (component/llama-cpp)
+
+  notice:
+    plugin: nil
+    source: NOTICE
+    source-type: file
+    override-build: |
+      license_dir=$CRAFT_PART_INSTALL/usr/share/doc
+      mkdir -p $license_dir
+      cp NOTICE $license_dir/
+      # Add license files referenced in NOTICE
+      cp $SNAPCRAFT_PROJECT_DIR/LICENSE $license_dir/
+      cp $SNAPCRAFT_PROJECT_DIR/NVIDIA-Nemotron-Open-Model-License-12-12-25.pdf $license_dir/
+
+components:
+  model-30b-a3b-q8-0-gguf-1-of-8: &model
+    type: standard
+    summary: NVIDIA Nemotron 3 Nano Omni 30B A3B q8-0 GGUF
+    description: Model weights for NVIDIA Nemotron 3 Nano Omni with 30B parameters and Q8_0 quantization in GGUF format
+  model-30b-a3b-q8-0-gguf-2-of-8:
+    <<: *model
+  model-30b-a3b-q8-0-gguf-3-of-8:
+    <<: *model
+  model-30b-a3b-q8-0-gguf-4-of-8:
+    <<: *model
+  model-30b-a3b-q8-0-gguf-5-of-8:
+    <<: *model
+  model-30b-a3b-q8-0-gguf-6-of-8:
+    <<: *model
+  model-30b-a3b-q8-0-gguf-7-of-8:
+    <<: *model
+  model-30b-a3b-q8-0-gguf-8-of-8:
+    <<: *model
+
+  model-mmproj:
+    type: standard
+    summary: NVIDIA Nemotron 3 Nano Omni 30B A3B MMRPOJ
+    description: Multimodal projection weights for NVIDIA Nemotron 3 Nano Omni in GGUF format
+
+  llama-cpp:
+    type: standard
+    summary: llama.cpp using default CPU instruction sets
+    description: LLM inference in C/C++
+
+apps:
+  nemotron-3-nano-omni:
+    command: bin/nemotron-3-nano-omni
+    completer: bin/completion.bash
+    plugs:
+      - hardware-observe
+      - opengl
+      - network
+
+  server:
+    command: bin/server.sh
+    daemon: simple
+    plugs:
+      - network-bind
+      - hardware-observe
+      - opengl
+      - home
+
