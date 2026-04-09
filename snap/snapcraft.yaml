@@ -33,7 +33,7 @@ parts:
       - git
     override-pull: |
       hash=$(git -C $SNAPCRAFT_PROJECT_DIR describe --always)
-      craftctl set version="v3+$hash"
+      craftctl set version="v2.0+$hash"
 
   cli:
     source:
@@ -219,6 +219,8 @@ apps:
       - hardware-observe
       - opengl
       - network
+    environment:
+      ADDITIONAL_FEATURES: chat
 
   server:
     command: bin/server.sh
@@ -229,6 +231,3 @@ apps:
       - opengl
       - home
       - network
-    environment:
-      ADDITIONAL_FEATURES: chat
-
