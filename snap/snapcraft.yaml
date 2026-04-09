@@ -102,19 +102,19 @@ parts:
         fi
       done
 
-  model-mmproj:
+  model-mmproj-30b-a3b-f16:
     plugin: nil
     # WARNING: "source" is commented out to improve disk use, as a side effect,
     # snapcraft will not detect changes to the source files to clear the cache and re-prime.
-    # source: components/model-mmproj
+    # source: components/model-mmproj-30b-a3b-f16
     override-prime: |
       set +x # reduce noise
 
       # Bypassing the usual part lifecycle saves disk space and time when dealing with large files
       # Copy model files directly from the project into the respective component's prime directory
 
-      source_dir="$CRAFT_PROJECT_DIR/components/model-mmproj"
-      target_env="CRAFT_COMPONENT_MODEL_MMPROJ_PRIME"
+      source_dir="$CRAFT_PROJECT_DIR/components/model-mmproj-30b-a3b-f16"
+      target_env="CRAFT_COMPONENT_MODEL_MMPROJ_30B_A3B_F16_PRIME"
       target_comp="${!target_env}"
 
       cp -v "$source_dir/mmproj-nemotron-3-nano-omni-ea1_v2.0.gguf" "$target_comp/"
@@ -174,7 +174,7 @@ components:
   model-30b-a3b-q8-0-gguf-8-of-8:
     <<: *model
 
-  model-mmproj:
+  model-mmproj-30b-a3b-f16:
     type: standard
     summary: NVIDIA Nemotron 3 Nano Omni 30B A3B MMPROJ
     description: Multimodal projector for Nemotron 3 Nano Omni 30B A3B in GGUF format

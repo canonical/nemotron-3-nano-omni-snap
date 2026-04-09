@@ -25,6 +25,6 @@ components:
   - model-30b-a3b-q8-0-gguf-6-of-8
   - model-30b-a3b-q8-0-gguf-7-of-8
   - model-30b-a3b-q8-0-gguf-8-of-8
-  - model-mmproj
+  - model-mmproj-30b-a3b-f16
 configurations:
   sleep-idle-seconds: 600
