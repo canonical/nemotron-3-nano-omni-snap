@@ -201,4 +201,7 @@ apps:
       - hardware-observe
       - opengl
       - home
+      - network
+    environment:
+      ADDITIONAL_FEATURES: chat
 
