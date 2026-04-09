@@ -176,8 +176,8 @@ components:
 
   model-mmproj:
     type: standard
-    summary: NVIDIA Nemotron 3 Nano Omni 30B A3B MMRPOJ
-    description: Multimodal projection weights for NVIDIA Nemotron 3 Nano Omni in GGUF format
+    summary: NVIDIA Nemotron 3 Nano Omni 30B A3B MMPROJ
+    description: Multimodal projector for Nemotron 3 Nano Omni 30B A3B in GGUF format
 
   llama-cpp:
     type: standard
