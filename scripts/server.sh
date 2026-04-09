@@ -1,4 +1,6 @@
-#!/bin/bash -eu
+#!/bin/bash
 
-engine="$(modelctl show-engine --format=json | jq -r .name)"
-modelctl run "$SNAP/engines/$engine/server" --wait-for-components
+set -euo pipefail
+
+engine="$(modelctl status --wait-for-components --format=json | jq -r .engine)"
+exec modelctl run "$SNAP/engines/$engine/server" --wait-for-components
