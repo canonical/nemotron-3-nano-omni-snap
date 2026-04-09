@@ -1,0 +1,30 @@
+name: cpu
+description: Optimized for a range of CPU micro-architectures
+vendor: Canonical Ltd
+grade: stable
+devices:
+  anyof:
+    - type: cpu
+      architecture: amd64
+    - type: cpu
+      architecture: arm64
+
+# The model will not fit into this much RAM, but it is memory mapped
+memory: 15G
+
+# The usage will be higher if considering snapd snapshots.
+disk-space: 68G
+
+components:
+  - llama-cpp
+  - model-30b-a3b-q8-0-gguf-1-of-8
+  - model-30b-a3b-q8-0-gguf-2-of-8
+  - model-30b-a3b-q8-0-gguf-3-of-8
+  - model-30b-a3b-q8-0-gguf-4-of-8
+  - model-30b-a3b-q8-0-gguf-5-of-8
+  - model-30b-a3b-q8-0-gguf-6-of-8
+  - model-30b-a3b-q8-0-gguf-7-of-8
+  - model-30b-a3b-q8-0-gguf-8-of-8
+  - model-mmproj-30b-a3b-f16
+configurations:
+  sleep-idle-seconds: 600

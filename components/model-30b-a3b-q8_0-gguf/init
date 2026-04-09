@@ -1,0 +1,15 @@
+#!/bin/bash -eu
+
+# Create flattened symbolic links in a temp directory to model shards in component directories
+
+temp_shard_dir="/tmp/model-30b-a3b-q8_0-gguf-shards"
+[ -d "$temp_shard_dir" ] && rm -r "$temp_shard_dir"
+mkdir -p "$temp_shard_dir"
+
+for i in {1..8}; do
+    shard_file="nemotron-3-nano-omni-ea1_v2.0-Q8_0-0000${i}-of-00008.gguf"
+    target_path="$temp_shard_dir/$shard_file"
+    source_path="$SNAP_COMPONENTS/model-30b-a3b-q8-0-gguf-${i}-of-8/$shard_file"
+
+    ln -s "$source_path" "$target_path"
+done

@@ -1,0 +1,2 @@
+environment:
+- MMPROJ_FILE=$COMPONENT/mmproj-nemotron-3-nano-omni-ea1_v2.0.gguf
