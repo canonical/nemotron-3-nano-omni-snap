@@ -14,14 +14,6 @@ environment:
   ARCH_TRIPLET: $CRAFT_ARCH_TRIPLET_BUILD_FOR
   OCL_ICD_VENDORS: $SNAP/etc/OpenCL/vendors
 
-layout:
-  # OpenCL looks in /etc/OpenCL/vendors for .icd files containing the paths to shared objects
-  /etc/OpenCL/vendors:
-    bind: $SNAP/etc/OpenCL/vendors
-  # Intel icd files use an absolute path to Intel OpenCL shared objects. Use a layout to mount the so files at the expected location
-  /usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/intel-opencl:
-    bind: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/intel-opencl
-
 plugs:
   # To allow side-loading models into server (root daemon) from user home directory
   home:
