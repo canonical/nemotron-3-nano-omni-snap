@@ -192,6 +192,8 @@ apps:
       - hardware-observe
       - opengl
       - network
+    environment:
+      ADDITIONAL_FEATURES: chat
 
   server:
     command: bin/server.sh
@@ -202,6 +204,3 @@ apps:
       - opengl
       - home
       - network
-    environment:
-      ADDITIONAL_FEATURES: chat
-
