@@ -2,4 +2,6 @@
 
 sleep_idle_seconds="$(modelctl get sleep-idle-seconds)"
 
+$SNAP_COMPONENTS/model-30b-a3b-q8-0-gguf-1-of-8/init
+
 exec "$SNAP_COMPONENTS/llama-cpp-cuda/server" --mmproj "$MMPROJ_FILE" --sleep-idle-seconds "$sleep_idle_seconds"
