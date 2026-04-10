@@ -142,6 +142,28 @@ parts:
     organize:
       "*": (component/llama-cpp)
 
+  llama-cpp-cuda:
+    plugin: dump
+    source:
+      - on amd64: ./llamacpp-amd64+cuda12.tar.gz # TODO: replace with remote build
+      - on arm64: ./llamacpp-arm64+cuda12.tar.gz # TODO: replace with remote build
+    override-build: |
+      # Move license files to be included in the snap, not the component
+      mkdir -p $CRAFT_PRIME/usr/share/doc/
+      mv licenses $CRAFT_PRIME/usr/share/doc/llama.cpp-cuda
+
+      craftctl default
+    stage-packages:
+      - libgomp1
+    organize:
+      "*": (component/llama-cpp-cuda)
+
+  llama-cpp-cuda-local-files:
+    plugin: dump
+    source: components/llama-cpp-cuda
+    organize:
+      "*": (component/llama-cpp-cuda)
+
   notice:
     plugin: nil
     source: NOTICE
@@ -182,6 +204,11 @@ components:
   llama-cpp:
     type: standard
     summary: llama.cpp using default CPU instruction sets
+    description: LLM inference in C/C++
+
+  llama-cpp-cuda:
+    type: standard
+    summary: llama.cpp with CUDA backend
     description: LLM inference in C/C++
 
 apps:
