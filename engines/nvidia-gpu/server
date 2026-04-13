@@ -1,4 +1,4 @@
-#!/bin/bash -eux
+#!/bin/bash -eu
 
 sleep_idle_seconds="$(modelctl get sleep-idle-seconds)"
 
