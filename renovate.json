@@ -29,6 +29,19 @@
       "datasourceTemplate": "github-releases",
       "depNameTemplate": "canonical/llama.cpp-builds",
       "versioningTemplate": "regex:^b(?<major>\\d+)$"
+    },
+    {
+      "customType": "regex",
+      "description": "Update ui-assets",
+      "fileMatch": [
+        "^snap/snapcraft\\.yaml$"
+      ],
+      "matchStrings": [
+        "ui-assets:\\n(?:\\s+.+\\n)*?\\s+source-tag:\\s*(?<currentValue>\\S+)"
+      ],
+      "datasourceTemplate": "github-tags",
+      "depNameTemplate": "canonical/inference-snaps-ui",
+      "versioningTemplate": "semver"
     }
   ]
 }
