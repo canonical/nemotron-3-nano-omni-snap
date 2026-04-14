@@ -52,6 +52,13 @@ parts:
       - pciutils # lspci
       - nvidia-utils-580 # nvidia-smi, used for NVIDIA vRAM and CUDA Capability detection
 
+  webui:
+    plugin: dump
+    source: https://github.com/canonical/inference-snaps-ui.git
+    source-tag: v1.0.0-beta.2
+    organize:
+      "static": webui/
+
   engines:
     source: engines
     plugin: dump
@@ -66,6 +73,7 @@ parts:
     organize:
       "server.sh": bin/
       "completion.bash": bin/
+      "server-webui.sh": bin/
 
   model-30b-a3b-q8-0-gguf:
     plugin: nil
@@ -231,3 +239,11 @@ apps:
       - opengl
       - home
       - network
+
+  server-webui:
+    command: bin/server-webui.sh
+    daemon: simple
+    environment:
+      UI_ASSETS_DIRECTORY: $SNAP/webui
+    plugs:
+      - network-bind
