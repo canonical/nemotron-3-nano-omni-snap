@@ -57,7 +57,7 @@ parts:
     source: https://github.com/canonical/inference-snaps-ui.git
     source-tag: v1.0.0-beta.2
     organize:
-      "static/*": var/ui-assets/
+      "static": webui/
 
   engines:
     source: engines
@@ -244,6 +244,6 @@ apps:
     command: bin/ui-server.sh
     daemon: simple
     environment:
-      UI_ASSETS_DIRECTORY: $SNAP/var/ui-assets
+      UI_ASSETS_DIRECTORY: $SNAP/webui
     plugs:
       - network-bind
