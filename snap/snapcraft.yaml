@@ -227,8 +227,9 @@ apps:
       - hardware-observe
       - opengl
       - network
+      - desktop # to open the browser using webui command
     environment:
-      ADDITIONAL_FEATURES: chat
+      ADDITIONAL_FEATURES: chat, webui
 
   server:
     command: bin/server.sh
