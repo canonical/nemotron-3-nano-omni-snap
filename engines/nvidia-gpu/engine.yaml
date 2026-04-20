@@ -12,17 +12,15 @@ devices:
     - type: cpu
       architecture: arm64
 memory: 15G
-disk-space: 70G
+disk-space: 50G
 components:
   - llama-cpp-cuda
-  - model-30b-a3b-q8-0-gguf-1-of-8
-  - model-30b-a3b-q8-0-gguf-2-of-8
-  - model-30b-a3b-q8-0-gguf-3-of-8
-  - model-30b-a3b-q8-0-gguf-4-of-8
-  - model-30b-a3b-q8-0-gguf-5-of-8
-  - model-30b-a3b-q8-0-gguf-6-of-8
-  - model-30b-a3b-q8-0-gguf-7-of-8
-  - model-30b-a3b-q8-0-gguf-8-of-8
+  - model-30b-a3b-q4-k-m-gguf-1-of-6
+  - model-30b-a3b-q4-k-m-gguf-2-of-6
+  - model-30b-a3b-q4-k-m-gguf-3-of-6
+  - model-30b-a3b-q4-k-m-gguf-4-of-6
+  - model-30b-a3b-q4-k-m-gguf-5-of-6
+  - model-30b-a3b-q4-k-m-gguf-6-of-6
   - model-mmproj-30b-a3b-f16
 configurations:
   sleep-idle-seconds: 600
