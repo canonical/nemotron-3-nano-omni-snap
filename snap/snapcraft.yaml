@@ -223,7 +223,6 @@ apps:
       - hardware-observe
       - opengl
       - network
-      - network-bind # to manually run the server
     environment:
       ADDITIONAL_FEATURES: chat
 
