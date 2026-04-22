@@ -2,4 +2,19 @@
 
 sleep_idle_seconds="$(modelctl get sleep-idle-seconds)"
 
-exec "$SNAP_COMPONENTS/llama-cpp-cuda/server" --mmproj "$MMPROJ_FILE" --sleep-idle-seconds "$sleep_idle_seconds"
+
+# llama.cpp forgets to include the mmproj file while doing VRAM calculations,
+# which can lead to OOM errors and a server crash.
+# We work around this issue by leveraging the -fitt option, used to leave more VRAM free.
+# We set the amount of VRAM to be left free to the default value for -fitt (1024M) plus
+# the size of the mmproj file, which is about 1500M.
+# Please see https://github.com/ggml-org/llama.cpp/issues/21323
+
+mmproj_size_bytes="$(stat -c %s "$MMPROJ_FILE")"
+mmproj_size_MiB=$(( mmproj_size_bytes / (1024*1024) ))
+free_vram_MiB=$(( 1024 + mmproj_size_MiB ))
+
+exec "$SNAP_COMPONENTS/llama-cpp-cuda/server" \
+    --mmproj "$MMPROJ_FILE" \
+    --sleep-idle-seconds "$sleep_idle_seconds" \
+    -fitt "${free_vram_MiB}M"
