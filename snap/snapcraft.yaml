@@ -131,8 +131,8 @@ parts:
   llama-cpp:
     plugin: dump
     source:
-      - on amd64: ./llamacpp-amd64.tar.gz # TODO: replace with remote build
-      - on arm64: ./llamacpp-arm64.tar.gz # TODO: replace with remote build
+      - on amd64: ./llamacpp-amd64.tar.gz # https://github.com/canonical/llama.cpp-builds-staging/releases/download/n3no-7e725b8/llamacpp-amd64.tar.gz
+      - on arm64: ./llamacpp-arm64.tar.gz # https://github.com/canonical/llama.cpp-builds-staging/releases/download/n3no-7e725b8/llamacpp-arm64.tar.gz
     override-build: |
       # Move license files to be included in the snap, not the component
       mkdir -p $CRAFT_PRIME/usr/share/doc/
@@ -153,8 +153,8 @@ parts:
   llama-cpp-cuda:
     plugin: dump
     source:
-      - on amd64: ./llamacpp-amd64+cuda12.tar.gz # TODO: replace with remote build
-      - on arm64: ./llamacpp-arm64+cuda12.tar.gz # TODO: replace with remote build
+      - on amd64: ./llamacpp-amd64+cuda12.tar.gz # https://github.com/canonical/llama.cpp-builds-staging/releases/download/n3no-7e725b8/llamacpp-amd64+cuda12.tar.gz
+      - on arm64: ./llamacpp-arm64+cuda12.tar.gz # https://github.com/canonical/llama.cpp-builds-staging/releases/download/n3no-7e725b8/llamacpp-arm64+cuda12.tar.gz
     override-build: |
       # Move license files to be included in the snap, not the component
       mkdir -p $CRAFT_PRIME/usr/share/doc/
