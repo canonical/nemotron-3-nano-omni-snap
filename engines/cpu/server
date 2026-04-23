@@ -4,4 +4,5 @@ sleep_idle_seconds="$(modelctl get sleep-idle-seconds)"
 
 exec "$SNAP_COMPONENTS/llama-cpp/server" \
     --mmproj "$MMPROJ_FILE" \
-    --sleep-idle-seconds "$sleep_idle_seconds"
+    --sleep-idle-seconds "$sleep_idle_seconds" \
+    "$@"

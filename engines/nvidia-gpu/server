@@ -17,4 +17,5 @@ free_vram_MiB=$(( 1024 + mmproj_size_MiB ))
 exec "$SNAP_COMPONENTS/llama-cpp-cuda/server" \
     --mmproj "$MMPROJ_FILE" \
     --sleep-idle-seconds "$sleep_idle_seconds" \
-    -fitt "${free_vram_MiB}M"
+    -fitt "${free_vram_MiB}M" \
+    "$@"
