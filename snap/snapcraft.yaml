@@ -186,7 +186,7 @@ parts:
 components:
   model-30b-a3b-reasoning-q4-k-m-1-of-6: &model
     type: standard
-    summary: NVIDIA Nemotron 3 Nano Omni 30B A3B Q4_K_M GGUF
+    summary: Sharded NVIDIA Nemotron 3 Nano Omni 30B A3B Reasoning Q4_K_M
     description: Model weights for NVIDIA Nemotron 3 Nano Omni with 30B parameters and Q4_K_M quantization in GGUF format
   model-30b-a3b-reasoning-q4-k-m-2-of-6:
     <<: *model
