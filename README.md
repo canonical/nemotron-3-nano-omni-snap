@@ -13,15 +13,17 @@ This snap installs a hardware-optimized engine for inference with Nemotron 3 Nan
 
 ## Build and install from source
 
+This repository uses Git LFS to store models. Make sure it is available before cloning:
+```shell
+sudo apt install git-lfs
+```
+
 Clone this repo with its submodules:
 ```shell
 git clone --recurse-submodules https://github.com/canonical/nemotron-3-nano-omni-snap
 ```
 
-Prepare the required models by following the instructions for each model, under the [components](./components) directory.
-
 Build the snap and its component:
-
 ```shell
 snapcraft pack -v
 ```
