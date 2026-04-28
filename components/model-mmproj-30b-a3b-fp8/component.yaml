@@ -1,0 +1,2 @@
+environment:
+- MMPROJ_FILE=$COMPONENT/mmproj-nemotron-3-nano-omni-30b-a3b-reasoning-fp8_v1.0.gguf

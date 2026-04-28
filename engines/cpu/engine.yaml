@@ -17,12 +17,12 @@ disk-space: 50G
 
 components:
   - llama-cpp
-  - model-30b-a3b-q4-k-m-gguf-1-of-6
-  - model-30b-a3b-q4-k-m-gguf-2-of-6
-  - model-30b-a3b-q4-k-m-gguf-3-of-6
-  - model-30b-a3b-q4-k-m-gguf-4-of-6
-  - model-30b-a3b-q4-k-m-gguf-5-of-6
-  - model-30b-a3b-q4-k-m-gguf-6-of-6
-  - model-mmproj-30b-a3b-f16
+  - model-30b-a3b-reasoning-q4-k-m-1-of-6
+  - model-30b-a3b-reasoning-q4-k-m-2-of-6
+  - model-30b-a3b-reasoning-q4-k-m-3-of-6
+  - model-30b-a3b-reasoning-q4-k-m-4-of-6
+  - model-30b-a3b-reasoning-q4-k-m-5-of-6
+  - model-30b-a3b-reasoning-q4-k-m-6-of-6
+  - model-mmproj-30b-a3b-fp8
 configurations:
   sleep-idle-seconds: 600
