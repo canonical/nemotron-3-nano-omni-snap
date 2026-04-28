@@ -28,7 +28,7 @@ jobs:
 
           - job-queue: anbox-nvidia-amd64
             provision-data: "distro: noble"
-            install-nvidia-driver-version: 550
+            install-nvidia-driver-version: 575
             select-engine: nvidia-gpu
             test-chat-tps: true
             expected-tps: 10
