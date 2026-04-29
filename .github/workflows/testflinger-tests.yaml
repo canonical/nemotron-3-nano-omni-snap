@@ -37,7 +37,7 @@ jobs:
             test-image-prompt: true
             devmode: true
 
-    uses: canonical/inference-snaps-testing/.github/workflows/test-snap.yaml@add-devmode
+    uses: canonical/inference-snaps-testing/.github/workflows/test-snap.yaml@v1
     secrets: inherit
     with:
       job-queue: ${{ matrix.jobs.job-queue }}
