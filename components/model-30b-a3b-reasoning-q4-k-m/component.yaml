@@ -5,6 +5,7 @@ environment:
   # The model file path is set to the first shard's symlink:
   - SHARDS_DIR=/tmp/model-30b-a3b-reasoning-q4-k-m-shards
   - MODEL_FILE=$SHARDS_DIR/nemotron-3-nano-omni-30b-a3b-reasoning-fp8_v1.0-Q4_K_M-00001-of-00006.gguf
+  - MODEL_NAME=nemotron-3-nano-omni-30b-a3b-reasoning-q4-k-m
 
 layout:
   $SHARDS_DIR/nemotron-3-nano-omni-30b-a3b-reasoning-fp8_v1.0-Q4_K_M-00001-of-00006.gguf:
