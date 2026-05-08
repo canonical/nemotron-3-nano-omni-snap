@@ -11,9 +11,10 @@ if [ "${verbose}" = "true" ]; then
 fi
 
 set -x
+model_alias="${MODEL_NAME:-$(basename "$MODEL_FILE")}"
 exec llama-server \
   --model "$MODEL_FILE" \
-  --alias "$MODEL_NAME" \
+  --alias "$model_alias" \
   --port "$port" \
   --host "$host" \
   --no-warmup \
