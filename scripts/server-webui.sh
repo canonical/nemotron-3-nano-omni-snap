@@ -6,4 +6,4 @@ host="$(modelctl get webui.http.host)"
 
 capabilities="text, vision, text:markdown"
 
-exec modelctl serve-webui "$UI_ASSETS_DIRECTORY" --port "$port" --host "$host" --capabilities "$capabilities"
+exec modelctl serve-webui "$SNAP/webui" --port "$port" --host "$host" --capabilities "$capabilities"

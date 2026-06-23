@@ -1,11 +1,36 @@
+id: 30b-a3b-reasoning-q4-k-m
+name: 30b
+
+description: NVIDIA Nemotron 3 Nano Omni 30B A3B Reasoning, a multimodal (text + vision) Mixture-of-Experts instruction-tuned reasoning model
+model-card-url: https://huggingface.co/unsloth/NVIDIA-Nemotron-3-Nano-Omni-30B-A3B-Reasoning-GGUF
+quantization: Q4_K_M
+
+disk-size: 24894M
+
+capabilities:
+  - text
+  - vision
+  - thinking
+  - tools
+
+components:
+  - model-mmproj-30b-a3b-fp8
+  - model-30b-a3b-reasoning-q4-k-m-1-of-6
+  - model-30b-a3b-reasoning-q4-k-m-2-of-6
+  - model-30b-a3b-reasoning-q4-k-m-3-of-6
+  - model-30b-a3b-reasoning-q4-k-m-4-of-6
+  - model-30b-a3b-reasoning-q4-k-m-5-of-6
+  - model-30b-a3b-reasoning-q4-k-m-6-of-6
+
 environment:
   # The model is split into multiple shards, maintained in individual component directories.
   # However, llama-server expects the shards to be located in the same directory.
   # The layout below flattens them into a single directory via symlinks.
   # The model file path is set to the first shard's symlink:
+  - MODEL_NAME=nemotron-3-nano-omni-30b-a3b-reasoning-q4-k-m
+  - MMPROJ_FILE=$SNAP_COMPONENTS/model-mmproj-30b-a3b-fp8/mmproj-nemotron-3-nano-omni-30b-a3b-reasoning-fp8_v1.0.gguf
   - SHARDS_DIR=/tmp/model-30b-a3b-reasoning-q4-k-m-shards
   - MODEL_FILE=$SHARDS_DIR/nemotron-3-nano-omni-30b-a3b-reasoning-fp8_v1.0-Q4_K_M-00001-of-00006.gguf
-  - MODEL_NAME=nemotron-3-nano-omni-30b-a3b-reasoning-q4-k-m
 
 layout:
   $SHARDS_DIR/nemotron-3-nano-omni-30b-a3b-reasoning-fp8_v1.0-Q4_K_M-00001-of-00006.gguf:
