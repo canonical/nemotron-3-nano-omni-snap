@@ -63,7 +63,7 @@ parts:
       # Do nothing. This significantly reduces build time when sourcing large files.
     override-build: |
       set -eo pipefail
-      cli_version=$($CRAFT_STAGE/bin/nemotron-3-nano-omni version --format=json | jq .cli --raw-output)
+      cli_version=$($CRAFT_STAGE/bin/modelctl version --format=json | jq .cli --raw-output)
       git_hash=$(git -C "$SNAPCRAFT_PROJECT_DIR" describe --always)
       craftctl set version="${cli_version#v}+${git_hash}"
 
@@ -172,10 +172,15 @@ parts:
     source:
       - on amd64: https://github.com/canonical/llama.cpp-builds/releases/download/b8893/llamacpp-amd64.tar.gz
       - on arm64: https://github.com/canonical/llama.cpp-builds/releases/download/b8893/llamacpp-arm64.tar.gz
+    override-build: |
+      # Move license files to be included in the snap, not the component
+      mkdir -p $CRAFT_PRIME/usr/share/doc/
+      mv licenses $CRAFT_PRIME/usr/share/doc/llama.cpp
+
+      craftctl default
     stage-packages:
       - libgomp1
     organize:
-      "licenses": usr/share/doc/llama.cpp # Add licenses to the snap
       "*": (component/llama-cpp)
 
   llama-cpp-cuda:
@@ -183,10 +188,15 @@ parts:
     source:
       - on amd64: https://github.com/canonical/llama.cpp-builds/releases/download/b8893/llamacpp-amd64+cuda12.tar.gz
       - on arm64: https://github.com/canonical/llama.cpp-builds/releases/download/b8893/llamacpp-arm64+cuda12.tar.gz
+    override-build: |
+      # Move license files to be included in the snap, not the component
+      mkdir -p $CRAFT_PRIME/usr/share/doc/
+      mv licenses $CRAFT_PRIME/usr/share/doc/llama.cpp-cuda
+
+      craftctl default
     stage-packages:
       - libgomp1
     organize:
-      "licenses": usr/share/doc/llama.cpp-cuda # Add licenses to the snap
       "*": (component/llama-cpp-cuda)
 
   notice:
@@ -234,7 +244,7 @@ components:
 
 apps:
   nemotron-3-nano-omni:
-    command: bin/nemotron-3-nano-omni
+    command: bin/modelctl
     completer: bin/snap-completer.bash
     plugs:
       - hardware-observe
@@ -251,7 +261,6 @@ apps:
       - network-bind
       - hardware-observe
       - opengl
-      - process-control
       - home
       - network
 
