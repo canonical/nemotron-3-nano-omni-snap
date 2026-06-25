@@ -2,7 +2,7 @@ name: nemotron-3-nano-omni
 base: core24
 summary: Nemotron 3 Nano Omni inference snap
 description: |
-  Quickly install an optimized environment for local inference with Nemotron 3 Nano Omni, a.k.a. Nemotron 3.
+  Quickly install an optimized environment for local inference with Nemotron 3 Nano Omni (often called Nemotron 3).
   
   Before you start, make sure to have the necessary drivers installed on the host:
   https://documentation.ubuntu.com/inference-snaps/how-to/install-drivers/
