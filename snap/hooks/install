@@ -11,11 +11,11 @@ exec 2> >(logger --stderr --priority error --tag=$tag)
 # Set generic config
 #
 
-modelctl set --package verbose="false"
-
 modelctl set --package http.port="8334"
 modelctl set --package http.host="127.0.0.1"
+modelctl set --package verbose="false"
 
+# Webui server config
 modelctl set --package webui.http.port="8335"
 modelctl set --package webui.http.host="127.0.0.1"
 
@@ -23,11 +23,4 @@ modelctl set --package webui.http.host="127.0.0.1"
 # Auto select an engine
 #
 
-if snapctl is-connected hardware-observe; then
-    modelctl use-engine --auto --assume-yes --verbose
-elif lscpu -V &> /dev/null; then
-    echo "Able to access hardware info without hardware-observe interface connection: assuming dev mode installation."
-    modelctl use-engine --auto --assume-yes --verbose
-else
-    echo "hardware-observe interface not auto connected. Skip auto engine selection."
-fi
+modelctl use-engine --auto --assume-yes --fallback=cpu

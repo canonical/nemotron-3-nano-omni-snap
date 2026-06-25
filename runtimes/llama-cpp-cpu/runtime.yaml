@@ -1,0 +1,15 @@
+servers:
+  openai:
+    protocol: http
+    base-path: /v1
+
+environment:
+  # Add llama.cpp binaries
+  - PATH=$PATH:$SNAP_COMPONENTS/llama-cpp/bin
+  # Add llama.cpp-built shared libraries
+  - LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SNAP_COMPONENTS/llama-cpp/lib
+  # Add staged shared libraries
+  - LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SNAP_COMPONENTS/llama-cpp/usr/lib/$ARCH_TRIPLET
+
+components:
+  - llama-cpp
