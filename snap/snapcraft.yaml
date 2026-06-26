@@ -190,7 +190,7 @@ parts:
 
       cp -v "$source_dir/mmproj-nemotron-3-nano-omni-30b-a3b-reasoning-fp8_v1.0.gguf" "$target_comp/"
 
-  llama-cpp:
+  llamacpp:
     plugin: dump
     source:
       - on amd64: https://github.com/canonical/llama.cpp-builds/releases/download/b8893/llamacpp-amd64.tar.gz
@@ -204,9 +204,9 @@ parts:
     stage-packages:
       - libgomp1
     organize:
-      "*": (component/llama-cpp)
+      "*": (component/llamacpp)
 
-  llama-cpp-cuda:
+  llamacpp-cuda:
     plugin: dump
     source:
       - on amd64: https://github.com/canonical/llama.cpp-builds/releases/download/b8893/llamacpp-amd64+cuda12.tar.gz
@@ -214,13 +214,13 @@ parts:
     override-build: |
       # Move license files to be included in the snap, not the component
       mkdir -p $CRAFT_PRIME/usr/share/doc/
-      mv licenses $CRAFT_PRIME/usr/share/doc/llama.cpp-cuda
+      mv licenses $CRAFT_PRIME/usr/share/doc/llamacpp-cuda
 
       craftctl default
     stage-packages:
       - libgomp1
     organize:
-      "*": (component/llama-cpp-cuda)
+      "*": (component/llamacpp-cuda)
 
   notice:
     plugin: nil
@@ -255,12 +255,12 @@ components:
     summary: NVIDIA Nemotron 3 Nano Omni 30B A3B MMPROJ
     description: Multimodal projector for Nemotron 3 Nano Omni 30B A3B in GGUF format
 
-  llama-cpp:
+  llamacpp:
     type: standard
     summary: llama.cpp using default CPU instruction sets
     description: LLM inference in C/C++
 
-  llama-cpp-cuda:
+  llamacpp-cuda:
     type: standard
     summary: llama.cpp with CUDA backend
     description: LLM inference in C/C++

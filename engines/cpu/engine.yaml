@@ -14,7 +14,7 @@ devices:
     - type: cpu
       architecture: arm64
 
-runtime: llama-cpp-cpu
+runtime: llamacpp-cpu
 
 model:
   default: 30b-a3b-reasoning-q4-k-m
