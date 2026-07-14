@@ -1,3 +1,4 @@
+name: llama-cpp-cpu
 servers:
   openai:
     protocol: http
