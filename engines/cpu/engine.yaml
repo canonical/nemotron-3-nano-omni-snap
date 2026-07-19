@@ -17,9 +17,9 @@ devices:
 runtime: llama-cpp-cpu
 
 model:
-  default: 30b-a3b-reasoning-q4-k-m
+  default: nemotron-3-nano-omni-30b-a3b
   options:
-    - 30b-a3b-reasoning-q4-k-m
+    - nemotron-3-nano-omni-30b-a3b
 
 configurations:
   sleep-idle-seconds: 600

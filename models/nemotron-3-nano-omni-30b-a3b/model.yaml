@@ -1,9 +1,8 @@
-id: 30b-a3b-reasoning-q4-k-m
-name: 30b
+name: nemotron-3-nano-omni-30b-a3b
 
 description: NVIDIA Nemotron 3 Nano Omni 30B A3B Reasoning, a multimodal (text + vision) Mixture-of-Experts instruction-tuned reasoning model
 model-card-url: https://huggingface.co/unsloth/NVIDIA-Nemotron-3-Nano-Omni-30B-A3B-Reasoning-GGUF
-quantization: Q4_K_M
+quantization: reasoning-q4-k-m
 
 disk-size: 24894M
 
@@ -45,3 +44,4 @@ layout:
     symlink: $SNAP_COMPONENTS/model-30b-a3b-reasoning-q4-k-m-5-of-6/nemotron-3-nano-omni-30b-a3b-reasoning-fp8_v1.0-Q4_K_M-00005-of-00006.gguf
   $SHARDS_DIR/nemotron-3-nano-omni-30b-a3b-reasoning-fp8_v1.0-Q4_K_M-00006-of-00006.gguf:
     symlink: $SNAP_COMPONENTS/model-30b-a3b-reasoning-q4-k-m-6-of-6/nemotron-3-nano-omni-30b-a3b-reasoning-fp8_v1.0-Q4_K_M-00006-of-00006.gguf
+
