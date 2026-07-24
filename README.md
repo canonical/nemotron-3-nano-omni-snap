@@ -16,6 +16,7 @@ This snap installs a hardware-optimized engine for inference with Nemotron 3 Nan
 Clone the repo:
 ```shell
 git clone https://github.com/canonical/nemotron-3-nano-omni-snap
+cd nemotron-3-nano-omni-snap
 ```
 
 Initialize the development environment:
