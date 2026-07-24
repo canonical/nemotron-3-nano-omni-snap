@@ -9,3 +9,4 @@ squashfs-root
 
 # Model files
 *.gguf
+components/
