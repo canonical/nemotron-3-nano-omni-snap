@@ -1,7 +1,29 @@
-# Nemotron 3 Nano Omni snap
+# Nemotron 3 Nano Omni inference snap
 [![nemotron-3-nano-omni](https://snapcraft.io/nemotron-3-nano-omni/badge.svg)](https://snapcraft.io/nemotron-3-nano-omni)
 
-This snap installs a hardware-optimized engine for inference with Nemotron 3 Nano Omni.
+Nemotron 3 Nano Omni is a multimodal large language model from NVIDIA built with a hybrid Mixture-of-Experts (MoE) architecture.
+
+Use this snap to quickly install an optimized environment for local inference with Nemotron 3 Nano Omni.
+
+The snap includes the following hardware-optimized inference engines:
+
+* cpu: Optimized for x64 and ARM (armv8, armv9) CPUs
+* nvidia-gpu: CUDA-enabled GPU acceleration
+
+The most suitable engine is automatically selected based on the available hardware.
+
+#### Install
+```shell
+sudo snap install nemotron-3-nano-omni
+```
+
+#### Run
+```shell
+nemotron-3-nano-omni
+```
+
+> [!TIP]
+> Some accelerators require extra [drivers](https://documentation.ubuntu.com/inference-snaps/how-to/setup/drivers/) to be usable with this snap.
 
 ## Resources
 
