@@ -3,7 +3,7 @@ title: Nemotron 3 Nano Omni
 base: core24
 summary: Local AI with Nemotron 3 Nano Omni inference snap
 description: |
-  NVIDIA Nemotron 3 Nano Omni is a multimodal large language model built with a hybrid Mixture-of-Experts (MoE) architecture.
+  Nemotron 3 Nano Omni is a multimodal large language model from NVIDIA built with a hybrid Mixture-of-Experts (MoE) architecture.
 
   Use this snap to quickly install an optimized environment for local inference with Nemotron 3 Nano Omni.
 
