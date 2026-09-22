@@ -1,7 +1,7 @@
 # Nemotron 3 Nano Omni inference snap
 [![nemotron-3-nano-omni](https://snapcraft.io/nemotron-3-nano-omni/badge.svg)](https://snapcraft.io/nemotron-3-nano-omni)
 
-NVIDIA Nemotron 3 Nano Omni is a multimodal large language model built with a hybrid Mixture-of-Experts (MoE) architecture.
+Nemotron 3 Nano Omni is a multimodal large language model from NVIDIA built with a hybrid Mixture-of-Experts (MoE) architecture.
 
 Use this snap to quickly install an optimized environment for local inference with Nemotron 3 Nano Omni.
 
